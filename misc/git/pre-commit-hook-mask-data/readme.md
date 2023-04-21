@@ -1,7 +1,7 @@
 # PRE-COMMIT Git hook to mask user defined data before commits
 > This is still a proof of concept. I've created it for educational purposes. Further work is still needed.
 ## Motivation:
-When I commit code to public repos, I usually mask my sensitive data manually which is practical or scalable. So I needed a way to automate that at each git commit.
+When I commit code to public repos, I usually mask my sensitive data manually which is not practical nor scalable. So I needed a way to automate that at each git commit.
 
 ## How git hooks work:
 When using git, it can execute scripts before and after some git commands. You can read all about them form [here](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks).  
