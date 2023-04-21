@@ -74,6 +74,7 @@ files=[]
 - This script lacks proper exception handling (for now) so please don't strain it too much :)
 - To disable this script, just rename it or add a file extension to it.
 - You can add the full path of a file to be ignored in the [ignore] table starting from your project's root directory.
+- The `.git` directory isn't pushed to Github with a push, [check here](https://github.com/git-guides/git-push). So in theory, my sensitive data should be safe. But further research is needed.
 ## Further work to be done:
 - [ ] Proper exception handling.
 - [ ] Packaging
