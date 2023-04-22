@@ -9,10 +9,10 @@ When using git, it can execute scripts before and after some git commands. You c
 The ***pre-commit*** hook is run first, before you even type in a commit message. It’s used to inspect the snapshot that’s about to be committed.  
 
 ## Implementation details:
-It's actually a straight forward process, you put the "***pre-commit***" script in your project's `.git/hooks` directory (usually at your project's root) accompanied by "***mask.toml***" config file which is basically telling the script *what* and *how* to mask my data with an optional *ignore* files that won't be masked. The script will check only the modified files.
+It's actually a straight forward process, you put the "***pre-commit***" script in your project's `.git/hooks` directory (usually at your project's root) accompanied by "***mask.toml***" config file which is basically telling the script *what* and *how* to mask your data with an optional *ignore* files list that won't be skipped from the checks. The script will check only the modified files.
 
 ## Setup and usage:
-1. This is a **Python** scripts that needs Python installed in your system.  
+1. This is a **Python** scripts that needs Python installed on your system.  
 2. Install **toml** package
 ```sh
 pip install toml
@@ -23,13 +23,13 @@ pip install toml
 4. Edit "***mask.toml***" as follows:
 ```toml
 [show]                  # The sensitive data you want to mask.
-12345678 = 4            # This will show only the last 4 characters i.e. "1234****"
+12345678 = 4            # This will show only the last 4 characters i.e. "****5678"
 asdirDkjcEDDcllsl = 0   # This will show 0 characters i.e. full mask "******************"
 
 [ignore]                # The list of files to ignore
 files=["ignoreme.html", "ignoreme2.html"]
 ```
-You write your piece of sensitive data in the [show] table and how many characters you want to show from it. If you write 0, it will be a full mask.  
+You write your piece of sensitive data in the [show] table and specify how many characters you want to show from it (from the right). If you write 0, it will be a full mask.  
 
 5. To activate the pre-commit script, just commit as usual (if there are untracked files, you should add them first to the git staging area `git add example.file`)
 ```sh
@@ -77,9 +77,9 @@ files=[]
 - The `.git` directory isn't pushed to Github with a push, [check here](https://github.com/git-guides/git-push). So in theory, my sensitive data should be safe. But further research is needed.
 ## Further work to be done:
 - [ ] Proper exception handling.
-- [ ] Packaging
-- [ ] Testing
-- [ ] Add more features to mask.toml
+- [ ] Packaging.
+- [ ] Testing.
+- [ ] Add more features to mask.toml.
 
 
 
