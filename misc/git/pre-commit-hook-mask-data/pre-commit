@@ -11,9 +11,8 @@ configs = toml.load(config_file)
 cmd_str = "git diff-index --cached --name-only HEAD"
 cmd_stdout = subprocess.run(cmd_str, capture_output=True).stdout
 files_modified = cmd_stdout.decode("utf8").strip().split("\n")
-files_ignored = [pathlib.Path(file) for file in configs["ignore"]["files"]]
 files_modified = [
-    pathlib.Path(file) for file in files_modified if file not in files_ignored
+    pathlib.Path(file) for file in files_modified if file not in configs["ignore"]["files"]
 ]
 
 for file in files_modified:
