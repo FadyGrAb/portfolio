@@ -56,8 +56,8 @@ files=[]
 5. Add the following file (config.json) to your project's root directory:
 ```json
 {
-    "MyAcountNumber": "123456789104",
-    "MySecreteKey": "asdirDkjcEDDcllsllksjdfoiiEDSfkk"
+    "MyAccountNumber": "123456789104",
+    "MySecretKey": "asdirDkjcEDDcllsllksjdfoiiEDSfkk"
 }
 ```
 6. Run `git add .`
@@ -65,8 +65,8 @@ files=[]
 8. After the commit you will get the "[GIT HOOK PRE-COMMIT] Sensitive data masked" message the the (config.json) will be
 ```json
 {
-    "MyAcountNumber": "*********9104",
-    "MySecreteKey": "********************************"
+    "MyAccountNumber": "*********9104",
+    "MySecretKey": "********************************"
 }
 ```
 ## Things to consider:
