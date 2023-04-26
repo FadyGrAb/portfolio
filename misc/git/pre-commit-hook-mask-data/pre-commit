@@ -9,7 +9,7 @@ config_file = hooks_dir / "mask.toml"
 configs = toml.load(config_file)
 
 cmd_str = "git diff-index --cached --name-only HEAD"
-cmd_stdout = subprocess.run(cmd_str, capture_output=True).stdout
+cmd_stdout = subprocess.run(cmd_str, capture_output=True, shell=True).stdout
 files_modified = cmd_stdout.decode("utf8").strip().split("\n")
 files_modified = [
     pathlib.Path(file) for file in files_modified if file not in configs["ignore"]["files"]
@@ -28,5 +28,5 @@ for file in files_modified:
     with file.open(mode="w") as new_file:
         new_file.write(file_content)
     # Add the file to staging
-    subprocess.run(f"git add {str(file)}")
+    subprocess.run(f"git add {str(file)}", shell=True)
 print("[GIT HOOK PRE-COMMIT] Sensitive data masked")
