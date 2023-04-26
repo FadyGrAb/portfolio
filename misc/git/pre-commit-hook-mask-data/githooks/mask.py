@@ -43,7 +43,7 @@ class MaskGitHook:
             f.write(content)
 
     def __get_file_hash(self, text: str) -> str:
-        self.hasher.update(text)
+        self.hasher.update(text.encode())
         return self.hasher.hexdigest()
 
     def mask(self) -> None:
