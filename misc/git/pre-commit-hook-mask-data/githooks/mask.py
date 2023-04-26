@@ -1,4 +1,3 @@
-import hashlib
 import pathlib
 import re
 import subprocess
@@ -16,7 +15,6 @@ class MaskGitHook:
             if not config_file.exists():
                 raise NoConfigurationFileFound()
             self.configs = toml.load(config_file)
-            self.hasher = hashlib.md5()
         except NoConfigurationFileFound as e:
             print(e)
         except Exception as e:
@@ -42,10 +40,6 @@ class MaskGitHook:
         with file.open(mode="w") as f:
             f.write(content)
 
-    def __get_file_hash(self, text: str) -> str:
-        self.hasher.update(text.encode())
-        return self.hasher.hexdigest()
-
     def mask(self) -> None:
         modified_files = self.__get_modified_files()
         if len(modified_files) == 0:
@@ -53,14 +47,14 @@ class MaskGitHook:
         else:
             for file in modified_files:
                 file_content = self.__read_file(file)
-                original_hash = self.__get_file_hash(file_content)
+                original_hash = self.hash(file_content)
 
                 for mask_key, show_char_count in self.configs["show"].items():
                     mask_stop = len(mask_key) - show_char_count
                     replacement = ("*" * mask_stop) + mask_key[mask_stop:]
                     file_content = re.sub(mask_key, replacement, file_content)
 
-                current_hash = self.__get_file_hash(file_content)
+                current_hash = self.hash(file_content)
 
                 if original_hash != current_hash:
                     self.__write_file(file, file_content)
