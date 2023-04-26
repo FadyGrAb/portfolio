@@ -47,14 +47,14 @@ class MaskGitHook:
         else:
             for file in modified_files:
                 file_content = self.__read_file(file)
-                original_hash = self.hash(file_content)
+                original_hash = hash(file_content)
 
                 for mask_key, show_char_count in self.configs["show"].items():
                     mask_stop = len(mask_key) - show_char_count
                     replacement = ("*" * mask_stop) + mask_key[mask_stop:]
                     file_content = re.sub(mask_key, replacement, file_content)
 
-                current_hash = self.hash(file_content)
+                current_hash = hash(file_content)
 
                 if original_hash != current_hash:
                     self.__write_file(file, file_content)
